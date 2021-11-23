@@ -2,6 +2,8 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 import copy
+import time
+import random
 
 class GameBoard(object):
 
@@ -149,8 +151,8 @@ def announce_none(event_type, metadata={}):
 
 
 def get_random_ai_shot(game_board):
-    x = random.randint(0, game_board.width - 1)
-    y = random.randint(0, game_board.height - 1)
+    x = random.randint(0, game_board.board_width - 1)
+    y = random.randint(0, game_board.board_height - 1)
     return (x, y)
 
 
@@ -180,13 +182,13 @@ def get_human_shot(game_board):
 
 
 
-if __name__ == "__main__":
+def run(announce_f, render_f):
     battleships = [
-        Battleship.build((1,1), 2, "N"),
-        Battleship.build((5,8), 5, "N"),
-        Battleship.build((2,3), 4, "E"),
-        Battleship.build((6,6), 3, "S"),
-        Battleship.build((9,9), 5, "W"),
+        Battleship.build((1, 1), 2, "N"),
+        Battleship.build((5, 8), 5, "N"),
+        Battleship.build((2, 3), 4, "E"),
+        Battleship.build((6, 6), 3, "S"),
+        Battleship.build((9, 9), 5, "W"),
     ]
 
     # https://robertheaton.com/2014/02/09/pythons-pass-by-object-reference-as-explained-by-philip-k-dick/
@@ -196,8 +198,8 @@ if __name__ == "__main__":
     ]
 
     players = [
-        Player("Rob", random_sleepy_ai(2.5)),
-        Player("Alice", random_sleepy_ai(2.5)),
+        Player("Rob", get_human_shot),
+        Player("Alice", random_sleepy_ai(1.5)),
     ]
 
     offensive_idx = 0
@@ -229,3 +231,6 @@ if __name__ == "__main__":
         # offensive player becomes the previous defensive
         # player
         offensive_idx = defensive_idx
+
+if __name__ == "__main__":
+    run(announce_en, render)
