@@ -4,6 +4,8 @@
 import copy
 import time
 import random
+import os
+
 
 class GameBoard(object):
 
@@ -16,6 +18,11 @@ class GameBoard(object):
     # update battleship with hits
     # save if hit or miss
     def take_shot(self, shot_location):
+        """
+        Update battleship with hits and save whether a shot was a hit or miss.
+        If hit, returns the battleship
+        Otherwise, returns None
+        """
         hit_battleship = None
         is_hit = False
         for b in self.battleships:
@@ -119,7 +126,7 @@ def render(game_board, show_battleships=False):
         if sh.is_hit:
             ch = "X"
         else:
-            ch = "@"
+            ch = "."
         board[x][y] = ch
 
     for y in range(game_board.board_height):
@@ -146,9 +153,6 @@ def announce_en(event_type, metadata={}):
         print("UNKNOWN EVENT TYPE: %s" % event_type)
 
 
-def announce_none(event_type, metadata={}):
-    pass
-
 
 def get_random_ai_shot(game_board):
     x = random.randint(0, game_board.board_width - 1)
@@ -167,28 +171,26 @@ def sleepy_ai(ai_f, sleep_time):
     return f
 
 
-def get_clever_ai(game_board):
-    return (0, 0)
-
-
 def get_human_shot(game_board):
     inp = input("Where do you want to shoot?\n")
-    # TODO: deal with invalid input
-    xstr, ystr = inp.split(",")
-    x = int(xstr)
-    y = int(ystr)
-
-    return (x, y)
-
-
+    try:
+        xstr, ystr = inp.split(",")
+        x = int(xstr)
+        y = int(ystr)
+        if x > 10 or y > 9:
+            return get_human_shot(game_board)
+        return (x, y)
+    except:
+        return get_human_shot(game_board)
+        
 
 def run(announce_f, render_f):
     battleships = [
         Battleship.build((1, 1), 2, "N"),
-        Battleship.build((5, 8), 5, "N"),
-        Battleship.build((2, 3), 4, "E"),
-        Battleship.build((6, 6), 3, "S"),
-        Battleship.build((9, 9), 5, "W"),
+        # Battleship.build((5, 8), 5, "N"),
+        # Battleship.build((2, 3), 4, "E"),
+        # Battleship.build((6, 6), 3, "S"),
+        # Battleship.build((9, 9), 5, "W"),
     ]
 
     # https://robertheaton.com/2014/02/09/pythons-pass-by-object-reference-as-explained-by-philip-k-dick/
@@ -232,5 +234,48 @@ def run(announce_f, render_f):
         # player
         offensive_idx = defensive_idx
 
+
+def display_rules():
+    """
+    Prints rules of game to screen
+    """
+    os.system("clear")
+    print("""Guess where the opponents ships are.\n
+    Give x, y cordinates for the 10X10 board.\n
+    Game ends when you have guessed where all the ships are.
+    """)
+    go_back = input("Go back to main menu?\n").lower()
+    if go_back:
+        return welcome()
+
+
+def welcome():
+    """
+    Prints welcome message
+    """
+    print("""
+     /$$$$$$$            /$$    /$$    /$$                  /$$      /$$         
+    | $$__  $$          | $$   | $$   | $$                 | $$     |__/         
+    | $$  \ $$ /$$$$$$ /$$$$$$/$$$$$$ | $$ /$$$$$$  /$$$$$$| $$$$$$$ /$$ /$$$$$$ 
+    | $$$$$$$ |____  $|_  $$_|_  $$_/ | $$/$$__  $$/$$_____| $$__  $| $$/$$__  $$
+    | $$__  $$ /$$$$$$$ | $$   | $$   | $| $$$$$$$|  $$$$$$| $$  \ $| $| $$  \ $$
+    | $$  \ $$/$$__  $$ | $$ /$| $$ /$| $| $$_____/\____  $| $$  | $| $| $$  | $$
+    | $$$$$$$|  $$$$$$$ |  $$$$|  $$$$| $|  $$$$$$$/$$$$$$$| $$  | $| $| $$$$$$$/
+    |_______/ \_______/  \___/  \___/ |__/\_______|_______/|__/  |__|__| $$____/ 
+                                                                       | $$      
+                                                                       | $$      
+                                                                       |__/         
+    """)
+    choice = input("""
+    Welcome to the game Battleship!\n
+    Would you like to:\n
+    1.Play game\n
+    2.Read rules\n
+    """)
+    if choice == "1":
+        run(announce_en, render)
+    elif choice == "2":
+        display_rules()
+
 if __name__ == "__main__":
-    run(announce_en, render)
+    welcome()
