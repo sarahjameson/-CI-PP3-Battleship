@@ -5,6 +5,8 @@ import copy
 import time
 import random
 import os
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 
 class GameBoard(object):
@@ -240,9 +242,12 @@ def display_rules():
     Prints rules of game to screen
     """
     os.system("clear")
-    print("""Guess where the opponents ships are.\n
-    Give x, y cordinates for the 10X10 board.\n
-    Game ends when you have guessed where all the ships are.
+    print("""
+R U L E S
+
+Guess where the opponents ships are.\n
+Give x, y cordinates for the 10X10 board.\n
+Game ends when you have guessed where all the ships are.
     """)
     go_back = input("Go back to main menu?\n").lower()
     if go_back:
@@ -254,28 +259,34 @@ def welcome():
     Prints welcome message
     """
     print("""
-     /$$$$$$$            /$$    /$$    /$$                  /$$      /$$         
-    | $$__  $$          | $$   | $$   | $$                 | $$     |__/         
-    | $$  \ $$ /$$$$$$ /$$$$$$/$$$$$$ | $$ /$$$$$$  /$$$$$$| $$$$$$$ /$$ /$$$$$$ 
-    | $$$$$$$ |____  $|_  $$_|_  $$_/ | $$/$$__  $$/$$_____| $$__  $| $$/$$__  $$
-    | $$__  $$ /$$$$$$$ | $$   | $$   | $| $$$$$$$|  $$$$$$| $$  \ $| $| $$  \ $$
-    | $$  \ $$/$$__  $$ | $$ /$| $$ /$| $| $$_____/\____  $| $$  | $| $| $$  | $$
-    | $$$$$$$|  $$$$$$$ |  $$$$|  $$$$| $|  $$$$$$$/$$$$$$$| $$  | $| $| $$$$$$$/
-    |_______/ \_______/  \___/  \___/ |__/\_______|_______/|__/  |__|__| $$____/ 
-                                                                       | $$      
-                                                                       | $$      
-                                                                       |__/         
+ /$$$$$$$            /$$    /$$    /$$                  /$$      /$$         
+| $$__  $$          | $$   | $$   | $$                 | $$     |__/         
+| $$  \ $$ /$$$$$$ /$$$$$$/$$$$$$ | $$ /$$$$$$  /$$$$$$| $$$$$$$ /$$ /$$$$$$ 
+| $$$$$$$ |____  $|_  $$_|_  $$_/ | $$/$$__  $$/$$_____| $$__  $| $$/$$__  $$
+| $$__  $$ /$$$$$$$ | $$   | $$   | $| $$$$$$$|  $$$$$$| $$  \ $| $| $$  \ $$
+| $$  \ $$/$$__  $$ | $$ /$| $$ /$| $| $$_____/\____  $| $$  | $| $| $$  | $$
+| $$$$$$$|  $$$$$$$ |  $$$$|  $$$$| $|  $$$$$$$/$$$$$$$| $$  | $| $| $$$$$$$/
+|_______/ \_______/  \___/  \___/ |__/\_______|_______/|__/  |__|__| $$____/ 
+                                                                   | $$      
+                                                                   | $$      
+                                                                   |__/         
     """)
+    print("M A I N  M E N U")
     choice = input("""
-    Welcome to the game Battleship!\n
-    Would you like to:\n
-    1.Play game\n
-    2.Read rules\n
-    """)
+Welcome to the game Battleship!\n
+Would you like to:\n
+1.Play game\n
+2.Read rules\n
+3.Quit
+Enter 1, 2 or 3 for choice: """)
+    os.system("clear")
     if choice == "1":
         run(announce_en, render)
     elif choice == "2":
         display_rules()
+    elif choice == "3":
+        print("G O O D B Y E 👋")
+        exit()
 
 if __name__ == "__main__":
     welcome()
