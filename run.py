@@ -9,6 +9,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from pprint import pprint
 
+# Setting up gspread use
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -17,12 +18,8 @@ SCOPE = [
 CREDS = ServiceAccountCredentials.from_json_keyfile_name("creds.json", SCOPE)
 CLIENT = gspread.authorize(CREDS)
 SHEET = CLIENT.open("winners").sheet1
+COL = SHEET.col_values(1)
 
-DATA = SHEET.get_all_records()
-ROW = SHEET.col_values(1)
-
-pprint(DATA)
-pprint(ROW)
 
 class GameBoard(object):
 
@@ -131,21 +128,32 @@ def render(game_board):
 
     print(header)
 
+
+
 # type, metadata (player,...)
 def announce_en(event_type, metadata={}):
+    """
+    Makes announcements during game
+    """
     if event_type == "game_over":
-        print("%s WINS THE GAME! 🎉" % metadata['player'])
+        print("%s WINS THE GAME! 🎉" % metadata["player"])
+        winning_player = metadata["player"]
+        add_winning_player(winning_player)
     elif event_type == "new_turn":
-        print("%s YOUR TURN! 👀" % metadata['player'])
+        print("%s YOUR TURN! 👀" % metadata["player"])
     elif event_type == "miss":
-        print("%s MISSED! 😥" % metadata['player'])
+        print("%s MISSED! 😥" % metadata["player"])
     elif event_type == "battleship_destroyed":
-        print("%s DESTROYED a battleship! 🔥" % metadata['player'])
+        print("%s DESTROYED a battleship! 🔥" % metadata["player"])
     elif event_type == "battleship_hit":
-        print("%s HIT a battleship! 💪" % metadata['player'])
+        print("%s HIT a battleship! 💪" % metadata["player"])
     else:
         print("UNKNOWN EVENT TYPE: %s" % event_type)
 
+
+def add_winning_player(winning_player):
+    insert_row = [winning_player]
+    SHEET.insert_row(insert_row, 1)
 
 
 def get_random_ai_shot(game_board):
@@ -176,9 +184,11 @@ def get_human_shot(game_board):
         return (x, y)
     except:
         return get_human_shot(game_board)
-        
+
 
 def run(announce_f, render_f):
+    name = input("Enter your name: ")
+
     battleships = [
         Battleship.build((1, 1), 2, "N"),
         # Battleship.build((5, 8), 5, "N"),
@@ -194,7 +204,7 @@ def run(announce_f, render_f):
     ]
 
     players = [
-        Player("Rob", get_human_shot),
+        Player(name, get_human_shot),
         Player("Mr Robot", random_sleepy_ai(1.5)),
     ]
 
@@ -241,8 +251,25 @@ Guess where the opponents ships are.\n
 Give x, y cordinates for the 10X10 board.\n
 Game ends when you have guessed where all the ships are.
     """)
-    go_back = input("Go back to main menu?\n").lower()
+    go_back = input("Press any key and enter to go back: ").lower()
     if go_back:
+        os.system("clear")
+        return welcome()
+
+
+def display_winners():
+    print("5  R E C E N T  W I N N E R S")
+    print()
+    winners_list = []
+    for winners in COL:
+        winners_list.append(winners)
+    if len(winners_list) > 5:
+        del winners_list[5:]
+    for each_winner in winners_list:
+        print("🔥" + each_winner)
+    go_back = input("Press any key and enter to go back: ").lower()
+    if go_back:
+        os.system("clear")
         return welcome()
 
 
@@ -269,14 +296,17 @@ Welcome to the game Battleship!\n
 Would you like to:\n
 1.Play game\n
 2.Read rules\n
-3.Quit
-Enter 1, 2 or 3 for choice: """)
+3.View winners\n
+4.Quit\n
+Enter 1, 2, 3 or 4 for choice: """)
     os.system("clear")
     if choice == "1":
         run(announce_en, render)
     elif choice == "2":
         display_rules()
     elif choice == "3":
+        display_winners()
+    elif choice == "4":
         print("G O O D B Y E 👋")
         exit()
     else:
