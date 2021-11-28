@@ -221,7 +221,6 @@ def run(announce_f, render_f):
         # Battleship.build((9, 9), 5, "W"),
     ]
 
-    # https://robertheaton.com/2014/02/09/pythons-pass-by-object-reference-as-explained-by-philip-k-dick/
     game_boards = [
         GameBoard(battleships, 10, 10),
         GameBoard(copy.deepcopy(battleships), 10, 10)
