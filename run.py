@@ -199,7 +199,7 @@ def get_human_shot(game_board):
     """
     Ask for human's coordinates
     """
-    inp = input("Where do you want to shoot?\n")
+    inp = input("Where do you want to shoot? Enter coordinates like 2,3 for example\n")
     try:
         xstr, ystr = inp.split(",")
         x = int(xstr)
@@ -208,6 +208,7 @@ def get_human_shot(game_board):
             return get_human_shot(game_board)
         return (x, y)
     except:
+        print("Opps. Try again.")
         return get_human_shot(game_board)
 
 
