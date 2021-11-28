@@ -56,7 +56,7 @@ Try your hand at playing against a computer! Battleship is a Python command line
 1. As a user, I want clear options from the main menu
 2. As a user, I want to see an option to read the rules for the game
 3. As a user, I want to be able to enter my name and see the personalised game messages throughout the game
-4. As a user, I want my name to be recording if I win the game so that others would be able to see that I have won
+4. As a user, I want my name to be recorded if I win the game so that others would be able to see that I have won
 5. As a user, I want move feedback throughout the game so I know what is going on at all times
 
 #### Site Owner
@@ -121,3 +121,69 @@ Please view the below flowchat, created with [Lucid](https://lucid.app/)
 <details><summary>Flowchart</summary>
 <img src="docs/flowcharts/flowchart-battleship.png">
 </details>
+
+### Data Models
+
+This project makes use of Object Oriented Programming and user the following as part of this:
+1. Classes - classes were used for the game board, shot, battleship and player. The game board and battleship were the most indepth.
+2. Lists and dictionaries - lists and dictionaries were used to create the game boards and also to use and manipulate the data sent over by the Google Sheets API.
+3. Google Sheets API - Google Sheets API was used as a database to save all the people's names who have won the game before.
+
+## Technologies Used
+
+### Languages Used
+
+- [Python 3](https://www.python.org/)
+
+### Frameworks and Tools
+
+- [Git](https://git-scm.com/) - Used for version control.
+- [Heroku](https://www.heroku.com/) - Used for hosting the website on Heroku.
+- [Lucid](https://lucid.app/) - Used to draw flowcharts.
+- [Google Sheets](https://www.google.com/sheets/about/) - Used to store data outside of running the game.
+- [Google Cloud Platform](https://cloud.google.com/cloud-console) - Used to manage permissions to Google Services such as Google Sheets.
+
+### Libraries
+
+- [gspread](https://docs.gspread.org/) - Used to make it easier to work with Google Sheets API.
+- [copy][https://docs.python.org/3/library/copy.html] - Used to create two different objects in memory. This was used to create two different game board.
+- [random](https://docs.python.org/3/library/random.html) - Used to generate computer's coordinates.
+- [os](https://docs.python.org/3/library/os.html) - Used to clear terminal.
+
+## Features
+
+### Main Menu
+
+On the main menu, the user is presented with an ASCII art rendering of the name 'Battleship'. Beneath that, there is a greeting and there are different options as part of the main menu.
+
+<details><summary>Main Menu</summary>
+<img src="docs/mockups/main-menu/main-menu.png"></details>
+
+This screen covers the following user stories:
+1. As a user, I want clear options from the main menu
+2. As a user, I want to see an option to read the rules for the game
+6. As a site owner, I want the user to be able to select from the different options in the main menu
+
+### Play Game
+
+When playing the game, the user is first instructed to enter their name. A personalised message will then appear for them to take their turn. As part of their turn, they must enter suitable coordinates. The computer will then take its turn. When a players win, the message is shown on the screen and the name is saved to the Google Sheet. There is then a message to go back to the main menu
+
+<details><summary>Play Game</summary>
+<img src="docs/mockups/game-play/game-play.png">
+<img src="docs/mockups/game-play/game-play-win.png"></details>
+
+This screen covers the following user stories:
+3. As a user, I want to be able to enter my name and see the personalised game messages throughout the game
+5. As a user, I want move feedback throughout the game so I know what is going on at all times
+8. As a site owner, I want data entry to be validated to show them how to correctly format the input
+
+### Read Rules
+
+When the user selects on the read rules option, the user is presented with the rules for Battleship. They are then given an option to go back to the main menu.
+
+<details><summary>Play Game</summary>
+<img src="docs/mockups/read-rules/read-rules.png"></details>
+
+
+
+
