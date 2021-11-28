@@ -309,9 +309,9 @@ By forking this GitHub repository you are making a copy of the original to view 
 - Code Institute - for git template IDE and heroku deployment instructions.
 - Google - for [gspread](https://docs.gspread.org/en/latest/) and [APIS](https://developers.google.com/sheets/api)
 - The following videos were used in the making of this project:
-    [Robert Heaton's Battleship series](https://www.youtube.com/watch?v=Gi0Fdyhk1_0&ab_channel=RobertHeaton)
-    [Tech with Tim's gspread tutorial](https://www.youtube.com/watch?v=cnPlKLEGR7E&ab_channel=TechWithTim)
-    [ASCII art generator](https://patorjk.com/software/taag/#p=display&h=3&f=Doom&t=Battleship)
+    *[Robert Heaton's Battleship series](https://www.youtube.com/watch?v=Gi0Fdyhk1_0&ab_channel=RobertHeaton)
+    *[Tech with Tim's gspread tutorial](https://www.youtube.com/watch?v=cnPlKLEGR7E&ab_channel=TechWithTim)
+    *[ASCII art generator](https://patorjk.com/software/taag/#p=display&h=3&f=Doom&t=Battleship)
 
 ### Acknowledgements: 
 
