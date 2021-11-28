@@ -146,7 +146,7 @@ This project makes use of Object Oriented Programming and user the following as 
 ### Libraries
 
 - [gspread](https://docs.gspread.org/) - Used to make it easier to work with Google Sheets API.
-- [copy][https://docs.python.org/3/library/copy.html] - Used to create two different objects in memory. This was used to create two different game board.
+- [copy](https://docs.python.org/3/library/copy.html) - Used to create two different objects in memory. This was used to create two different game board.
 - [random](https://docs.python.org/3/library/random.html) - Used to generate computer's coordinates.
 - [os](https://docs.python.org/3/library/os.html) - Used to clear terminal.
 
@@ -258,6 +258,6 @@ The Python code was validated using [PEP8 Validation Service](http://pep8online.
 | Game Play       |      Select from Main Menu       | User is made to enter coordinates correctly | Works as expected |
 
 
-
+## Bugs
 
 
