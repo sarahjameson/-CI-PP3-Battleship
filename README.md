@@ -202,6 +202,60 @@ This screen covers the following user stories:
 
 ### Python Validation
 
+The Python code was validated using [PEP8 Validation Service](http://pep8online.com/). The code passed with 0 errors and 0 warnings.
+
+<details><summary>run.py</summary>
+<img src="docs/python-validation/python-validation.png"></details>
+
+### Testing User Stories
+
+1. As a user, I want clear options from the main menu
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| Main Menu       |      Select any of the options       | User is presented with different options | Works as expected |
+
+2. As a user, I want to see an option to read the rules for the game
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| Read Rules       |      Select from Main Menu      | User is presented with the rules | Works as expected |
+
+3. As a user, I want to be able to enter my name and see the personalised game messages throughout the game
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| Game Play       |      Select from Main Menu       | After name entered, they will received personalised messages | Works as expected |
+
+4. As a user, I want my name to be recorded if I win the game so that others would be able to see that I have won
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| View Winners       |      Select from Main Menu       | User is presented with different options | Works as expected |
+
+5. As a user, I want move feedback throughout the game so I know what is going on at all times
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| Game Play       |      Select from Main Menu       | User is presented with feedback | Works as expected |
+
+6. As a site owner, I want the user to be able to select from the different options in the main menu
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| Main Menu       |      Select any of the options       | User is presented with different options | Works as expected |
+
+7. As a site owner, I want the name to be saved to the Google Sheets and to be able to view them in the game
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| View Winners       |      Select from Main Menu       | User is presented with five different name who are recorded winners | Works as expected |
+
+8. As a site owner, I want data entry to be validated to show them how to correctly format the input
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| Game Play       |      Select from Main Menu       | User is made to enter coordinates correctly | Works as expected |
 
 
 

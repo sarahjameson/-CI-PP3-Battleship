@@ -1,6 +1,3 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
 import copy
 import time
 import random
@@ -199,7 +196,8 @@ def get_human_shot(game_board):
     """
     Ask for human's coordinates
     """
-    inp = input("Where do you want to shoot? Enter coordinates like 2,3 for example\n")
+    inp = input("""Where do you want to shoot?\n
+Enter coordinates like 2,3 for example\n""")
     try:
         xstr, ystr = inp.split(",")
         x = int(xstr)
@@ -250,7 +248,9 @@ def run(announce_f, render_f):
             announce_f("miss", {"player": offensive_player.name})
         else:
             if hit_battleship.is_destroyed():
-                announce_f("battleship_destroyed", {"player": offensive_player.name})
+                announce_f(
+                    "battleship_destroyed",
+                    {"player": offensive_player.name})
             else:
                 announce_f("battleship_hit", {"player": offensive_player.name})
 
@@ -303,14 +303,14 @@ def welcome():
     Prints welcome message
     """
     print("""
-______       _   _   _          _     _       
-| ___ \     | | | | | |        | |   (_)      
-| |_/ / __ _| |_| |_| | ___ ___| |__  _ _ __  
-| ___ \/ _` | __| __| |/ _ / __| '_ \| | '_ \ 
+______       _   _   _          _     _
+| ___ \     | | | | | |        | |   (_)
+| |_/ / __ _| |_| |_| | ___ ___| |__  _ _ __
+| ___ \/ _` | __| __| |/ _ / __| '_ \| | '_ \
 | |_/ | (_| | |_| |_| |  __\__ | | | | | |_) |
-\____/ \__,_|\__|\__|_|\___|___|_| |_|_| .__/ 
-                                       | |    
-                                       |_|           
+\____/ \__,_|\__|\__|_|\___|___|_| |_|_| .__/
+                                       | |
+                                       |_|
     """)
     print("M A I N  M E N U")
     choice = input("""
