@@ -7,7 +7,22 @@ import random
 import os
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from pprint import pprint
 
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+CREDS = ServiceAccountCredentials.from_json_keyfile_name("creds.json", SCOPE)
+CLIENT = gspread.authorize(CREDS)
+SHEET = CLIENT.open("winners").sheet1
+
+DATA = SHEET.get_all_records()
+ROW = SHEET.col_values(1)
+
+pprint(DATA)
+pprint(ROW)
 
 class GameBoard(object):
 
@@ -90,7 +105,7 @@ class Player(object):
         self.shot_f = shot_f
 
 
-def render(game_board, show_battleships=False):
+def render(game_board):
     header = "+" + "-" * game_board.board_width + "+"
     print(header)
 
@@ -98,29 +113,6 @@ def render(game_board, show_battleships=False):
     board = []
     for _ in range(game_board.board_width):
         board.append([None for _ in range(game_board.board_height)])
-
-    if show_battleships:
-        # Add the battleships to the board
-        for b in game_board.battleships:
-            for i, (x, y) in enumerate(b.body):
-                if b.direction == "N":
-                    chs = ("v", "|", "^")
-                elif b.direction == "S":
-                    chs = ("^", "|", "v")
-                elif b.direction == "W":
-                    chs = (">", "=", "<")
-                elif b.direction == "E":
-                    chs = ("<", "=", ">")
-                else:
-                    raise "Unknown direction"
-
-                if i == 0:
-                    ch = chs[0]
-                elif i == len(b.body) - 1:
-                    ch = chs[2]
-                else:
-                    ch = chs[1]
-                board[x][y] = ch
 
     # Add the shots to the board
     for sh in game_board.shots:
@@ -142,15 +134,15 @@ def render(game_board, show_battleships=False):
 # type, metadata (player,...)
 def announce_en(event_type, metadata={}):
     if event_type == "game_over":
-        print("%s WINS THE GAME!" % metadata['player'])
+        print("%s WINS THE GAME! 🎉" % metadata['player'])
     elif event_type == "new_turn":
-        print("%s YOUR TURN!" % metadata['player'])
+        print("%s YOUR TURN! 👀" % metadata['player'])
     elif event_type == "miss":
-        print("%s MISSED!" % metadata['player'])
+        print("%s MISSED! 😥" % metadata['player'])
     elif event_type == "battleship_destroyed":
-        print("%s DESTROYED a battleship!" % metadata['player'])
+        print("%s DESTROYED a battleship! 🔥" % metadata['player'])
     elif event_type == "battleship_hit":
-        print("%s HIT a battleship!" % metadata['player'])
+        print("%s HIT a battleship! 💪" % metadata['player'])
     else:
         print("UNKNOWN EVENT TYPE: %s" % event_type)
 
@@ -203,7 +195,7 @@ def run(announce_f, render_f):
 
     players = [
         Player("Rob", get_human_shot),
-        Player("Alice", random_sleepy_ai(1.5)),
+        Player("Mr Robot", random_sleepy_ai(1.5)),
     ]
 
     offensive_idx = 0
@@ -287,6 +279,10 @@ Enter 1, 2 or 3 for choice: """)
     elif choice == "3":
         print("G O O D B Y E 👋")
         exit()
+    else:
+        print("❌Incorrect choice. Try again.❌")
+        print("vvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
+        welcome()
 
 if __name__ == "__main__":
     welcome()
