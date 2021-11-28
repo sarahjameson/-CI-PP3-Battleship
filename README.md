@@ -112,4 +112,11 @@ With the Quit option, the user exits the program with a goodbye message.
 
 </details>
 
+## Technical Design
 
+### Flow Chart
+
+Please view the below flowchat, created with [Lucid](https://lucid.app/)
+
+<details><summary>Flowchart</summary>
+<img src="docs/flowcharts/flowchat-battleship.png"></details>
