@@ -181,8 +181,28 @@ This screen covers the following user stories:
 
 When the user selects on the read rules option, the user is presented with the rules for Battleship. They are then given an option to go back to the main menu.
 
-<details><summary>Play Game</summary>
+<details><summary>Read Rules</summary>
 <img src="docs/mockups/read-rules/read-rules.png"></details>
+
+This screen covers the following user stories:
+2. As a user, I want to see an option to read the rules for the game
+
+### View Winners
+
+When the user clicks on view winners, they will see the five most recent winners.
+
+<details><summary>View Winners</summary>
+<img src="docs/mockups/view-winners/view-winners.png"></details>
+
+This screen covers the following user stories:
+4. As a user, I want my name to be recorded if I win the game so that others would be able to see that I have won
+7. As a site owner, I want the name to be saved to the Google Sheets and to be able to view them in the game
+
+## Validation
+
+### Python Validation
+
+
 
 
 
