@@ -5,7 +5,6 @@ import copy
 import time
 import random
 import os
-from pprint import pprint
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -148,6 +147,10 @@ def announce_en(event_type, metadata={}):
         print("%s WINS THE GAME! 🎉" % metadata["player"])
         winning_player = metadata["player"]
         add_winning_player(winning_player)
+        go_back = input("Press any key and enter to go back:\n").lower()
+        if go_back:
+            os.system("clear")
+            return welcome()
     elif event_type == "new_turn":
         print("%s YOUR TURN! 👀" % metadata["player"])
     elif event_type == "miss":
@@ -209,7 +212,7 @@ def get_human_shot(game_board):
 
 
 def run(announce_f, render_f):
-    name = input("Enter your name: ")
+    name = input("Enter your name:\n")
 
     battleships = [
         Battleship.build((1, 1), 2, "N"),
@@ -272,7 +275,7 @@ Guess where the opponents ships are.\n
 Give x, y cordinates for the 10X10 board.\n
 Game ends when you have guessed where all the ships are.
     """)
-    go_back = input("Press any key and enter to go back: ").lower()
+    go_back = input("Press any key and enter to go back:\n").lower()
     if go_back:
         os.system("clear")
         return welcome()
@@ -288,7 +291,7 @@ def display_winners():
         del winners_list[5:]
     for each_winner in winners_list:
         print("🔥" + each_winner)
-    go_back = input("Press any key and enter to go back: ").lower()
+    go_back = input("Press any key and enter to go back:\n").lower()
     if go_back:
         os.system("clear")
         return welcome()
@@ -319,7 +322,7 @@ Would you like to:\n
 2.Read rules\n
 3.View winners\n
 4.Quit\n
-Enter 1, 2, 3 or 4 for choice: """)
+Enter 1, 2, 3 or 4 for choice:\n""")
     os.system("clear")
     if choice == "1":
         run(announce_en, render)
