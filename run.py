@@ -314,7 +314,6 @@ def welcome():
                                                                    | $$      
                                                                    |__/         
     """)
-    print("M A I N  M E N U")
     choice = input("""
 Welcome to the game Battleship!\n
 Would you like to:\n
@@ -322,7 +321,7 @@ Would you like to:\n
 2.Read rules\n
 3.View winners\n
 4.Quit\n
-Enter 1, 2, 3 or 4 for choice:\n""")
+Enter 1, 2, 3 or 4:\n""")
     os.system("clear")
     if choice == "1":
         run(announce_en, render)
