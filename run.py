@@ -5,9 +5,10 @@ import copy
 import time
 import random
 import os
+from pprint import pprint
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-from pprint import pprint
+
 
 # Setting up gspread use
 SCOPE = [
@@ -29,8 +30,6 @@ class GameBoard(object):
         self.board_width = board_width
         self.board_height = board_height
 
-    # update battleship with hits
-    # save if hit or miss
     def take_shot(self, shot_location):
         """
         Update battleship with hits and save whether a shot was a hit or miss.
@@ -51,6 +50,9 @@ class GameBoard(object):
         return hit_battleship
 
     def is_game_over(self):
+        """
+        Keeps track of when game is over
+        """
         return all([b.is_destroyed() for b in self.battleships])
 
 
@@ -65,6 +67,9 @@ class Battleship(object):
 
     @staticmethod
     def build(head, length, direction):
+        """
+        Builds battlship and returns it
+        """
         body = []
         for i in range(length):
             if direction == "N":
@@ -92,6 +97,9 @@ class Battleship(object):
             return None
 
     def is_destroyed(self):
+        """
+        Checks if ship has been hit everywhere
+        """
         return all(self.hits)
 
 
@@ -103,6 +111,9 @@ class Player(object):
 
 
 def render(game_board):
+    """
+    Creates gameboard and adds any shots to the board
+    """
     header = "+" + "-" * game_board.board_width + "+"
     print(header)
 
@@ -129,8 +140,6 @@ def render(game_board):
     print(header)
 
 
-
-# type, metadata (player,...)
 def announce_en(event_type, metadata={}):
     """
     Makes announcements during game
@@ -152,17 +161,27 @@ def announce_en(event_type, metadata={}):
 
 
 def add_winning_player(winning_player):
+    """
+    Adds winning player to gsheet so they
+    can be remembered
+    """
     insert_row = [winning_player]
     SHEET.insert_row(insert_row, 1)
 
 
 def get_random_ai_shot(game_board):
+    """
+    Picks coordinates for computer's go
+    """
     x = random.randint(0, game_board.board_width - 1)
     y = random.randint(0, game_board.board_height - 1)
     return (x, y)
 
 
 def random_sleepy_ai(sleep_time):
+    """
+    Puts timer on computer's go
+    """
     return sleepy_ai(get_random_ai_shot, sleep_time)
 
 
@@ -174,12 +193,15 @@ def sleepy_ai(ai_f, sleep_time):
 
 
 def get_human_shot(game_board):
+    """
+    Ask for human's coordinates
+    """
     inp = input("Where do you want to shoot?\n")
     try:
         xstr, ystr = inp.split(",")
         x = int(xstr)
         y = int(ystr)
-        if x > 10 or y > 9:
+        if x > 9 or y > 9:
             return get_human_shot(game_board)
         return (x, y)
     except:
@@ -234,8 +256,7 @@ def run(announce_f, render_f):
             announce_f("game_over", {"player": offensive_player.name})
             break
 
-        # offensive player becomes the previous defensive
-        # player
+        # offensive player becomes the previous defensive player
         offensive_idx = defensive_idx
 
 
@@ -313,6 +334,7 @@ Enter 1, 2, 3 or 4 for choice: """)
         print("❌Incorrect choice. Try again.❌")
         print("vvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
         welcome()
+
 
 if __name__ == "__main__":
     welcome()
