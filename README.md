@@ -260,4 +260,43 @@ The Python code was validated using [PEP8 Validation Service](http://pep8online.
 
 ## Bugs
 
+| **Bug** | **Fix** |
+| ----------- | ----------- |
+| Winning name is not updating until programme termination and re-run |   I need to find another area for the function to be called   |
+
+## Deployment
+
+### Heroku
+
+This application has been deployed from Github using Heroku. Here's how:
+
+1. Create an account at heroku.com
+2. Create a new app, add app name and your region
+3. Click on create app
+4. Go to "Settings"
+5. Under Config Vars, add your sensitive data (creds.json for example)
+6. For this project, I set buildpacks to and in that order.
+7. Go to "Deploy" and at "Deployment method", click on "Connect to Github"
+8. Enter your repository name and click on it when it shows below
+9. Choose the branch you want to buid your app from
+10. If desired, click on "Enable Automatic Deploys", which keeps the app up to date with your Github repository
+
+### Forking the GitHub Repository 
+
+By forking this GitHub repository you are making a copy of the original to view or make changes without affecting the original. You can do this by following these steps...
+
+1. Log into your GitHub account and find the [repository](https://github.com/sarahjameson/-CI-PP3-Battleship).
+2. Click 'Fork' (last button on the top right of the repository page).
+3. You will then have a copy of the repository in your own GitHub account. 
+
+### Making a Local Clone
+
+1. Log into your GitHub account and find the [repository](https://github.com/sarahjameson/-CI-PP3-Battleship).
+2. Click on the 'Code' button (next to 'Add file'). 
+3. To clone the repository using HTTPS, under clone with HTTPS, copy the link.
+4. Then open Git Bash.
+5. Change the current working directory to where you want the cloned directory to be made.
+6. In your IDE's terminal type 'git clone' followed by the URL you copied.
+7. Press Enter. 
+8. Your local clone will now be made.
 
